@@ -24,6 +24,8 @@ mongoose.connect(URI, {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api/users', require('./routes/users'))
+app.use(passport.initialize());
+require('./middleware/passport')(passport)
 
 
 

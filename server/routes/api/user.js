@@ -7,8 +7,8 @@ const config = require('../../config/key')
 const validateRegister = require('../../validation/register')
 const validateLogin = require('../../validation/login')
 const User = require('../../models/User')
-
 const SECRET = config.SECRET
+
 
 router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegister(req.body);
