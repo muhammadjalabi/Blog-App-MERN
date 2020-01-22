@@ -8,15 +8,15 @@ const Post = {
     required: true
   },
   body: {
-    type: String;
+    type: String,
     required: true
   },
   author: {
-    type: String;
+    type: String,
     required: true
   },
   date: {
-    type: Date;
+    type: Date,
     default: Date.now
   },
 };

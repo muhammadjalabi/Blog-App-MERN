@@ -22,16 +22,15 @@ router.post('/register', (req, res) => {
         return res.status(400)
           .json({ email: 'Email already exists' })
       }
-      else {
+      else if (user.name === name) {
         return res.status(400)
           .json({ name: 'username already exists' })
-      }
-      else {
+      } else {
         const newUser = new User({ name, email, password })
         //Hasing password before saving it to the database
         bcrypt.genSalt(10, (error, salt) => {
-          bcrypt.hash(newUser.password, salt(error, hash) => {
-            if(error) {
+          bcrypt.hash(newUser.password, salt, (error, hash) => {
+            if (error) {
               throw error;
             }
             newUser.password = hash;

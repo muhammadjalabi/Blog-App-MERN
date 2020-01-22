@@ -7,11 +7,11 @@ const User = {
     required: true
   },
   email: {
-    type: String;
+    type: String,
     required: true
   },
   password: {
-    type: String;
+    type: String,
     required: true
   },
 };
