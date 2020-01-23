@@ -12,6 +12,9 @@ import {
 } from './types'
 
 
+
+
+
 const togglePostLoading = () => {
   return { type: TOGGLE_POST_LOADING }
 }
@@ -30,7 +33,7 @@ const createPost = (post, history) => dispatch => {
     dispatch(togglePostLoading())
     history.push('/blog')
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostLoading())
   })
 }
@@ -42,7 +45,7 @@ const getPostByID = id => dispatch => {
     dispatch(clearErrors())
     dispatch(togglePostLoading())
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostLoading())
   })
 }
@@ -52,7 +55,7 @@ const getAllPostsFromAuthor = author => dispatch => {
     dispatch({ type: GET_ALL_POSTS, payload: result.data })
     dispatch(togglePostsLoading())
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostsLoading())
   })
 }
@@ -64,7 +67,7 @@ const getAllPosts = () => dispatch => {
     dispatch(clearErrors())
     dispatch(togglePostsLoading())
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostsLoading())
   })
 }
@@ -76,7 +79,7 @@ const editPost = (id, post, history) => dispatch => {
     dispatch(togglePostLoading())
     history.push(`/blog/post/${result.data._id}`)
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostLoading())
   })
 }
@@ -88,7 +91,19 @@ const deletePost = (id, history) => dispatch => {
     dispatch(togglePostLoading())
     history.push('/blog')
   }).catch(error => {
-    dispatch(/**setErrors(error.response.data) */)
+    dispatch(setErrors(error.response.data))
     dispatch(togglePostLoading())
   })
+}
+
+export default = {
+  togglePostLoading,
+  togglePostsLoading,
+  resetPost,
+  createPost,
+  getPostByID,
+  getAllPostsFromAuthor,
+  getAllPosts,
+  editPost,
+  deletePost
 }
