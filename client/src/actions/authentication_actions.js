@@ -1,25 +1,26 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 
+import setAuthToken from '../utils/setAuthToken'
 
 import { SET_CURRENT_USER, TOGGLE_USER_LOADING } from './types'
-import setAuthToken from '../utils/setAuthToken'
-// import { resetPost } from "./postActions";
-// import { setErrors } from "./errorActions";
 
-const setCurrentUser = user => {
+import { resetPost } from "./post_actions";
+import { setErrors } from "./error_actions";
+
+export const setCurrentUser = user => {
   return {
     type: SET_CURRENT_USER,
     payload: user
   }
 }
-const toggleUserLoading = () => {
+export const toggleUserLoading = () => {
   return {
     type: TOGGLE_USER_LOADING
   }
 }
 
-const register = (user, history) => dispatch => {
+export const register = (user, history) => dispatch => {
   dispatch(toggleUserLoading())
   axios.post('/api/users/register', user).then(result => {
     dispatch(toggleUserLoading());
@@ -32,11 +33,11 @@ const register = (user, history) => dispatch => {
     })
 }
 
-const login = user => dispatch => {
+export const login = user => dispatch => {
   dispatch(toggleUserLoading())
   axios('/api/users/login', user).then(result => {
     dispatch(resetPost())
-    localStorage.setItem('jwtToken' result.data.token)
+    localStorage.setItem('jwtToken', result.data.token)
     setAuthToken(result.data.token)
     const decodedToken = jwt_decode(result.data.token)
     dispatch(setCurrentUser(decodedToken))
@@ -48,7 +49,7 @@ const login = user => dispatch => {
     })
 }
 
-const logout = () => dispatch => {
+export const logout = () => dispatch => {
   localStorage.removeItem('jwtToken')
   setAuthToken(false)
   dispatch(setCurrentUser())

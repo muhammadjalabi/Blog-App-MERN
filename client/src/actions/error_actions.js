@@ -1,10 +1,9 @@
 import { SET_ERRORS } from './types'
-const setErrors = error => {
+
+export const setErrors = error => {
   return { type: SET_ERRORS, payload: error }
 }
 
-const clearErrors = () => {
+export const clearErrors = () => {
   return { type: SET_ERRORS, payload: {} }
 }
-
-export default = { setErrors, clearErrors }

@@ -1,6 +1,8 @@
 const express = require('express');
+
 const passport = require('passport');
 const path = require('path');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser') //this will allow you to use commands like req.BODY<---
 
@@ -21,12 +23,13 @@ mongoose.connect(URI,
 mongoose.Promise = global.Promise;
 
 //Middlewares
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./middleware/passport')(passport)
-app.use('/api/user', require('./routes/api/user'))
-app.use('/api/post', require('./routes/api/post'))
+app.use('/api/users/', require('./routes/api/users'))
+app.use('/api/posts/', require('./routes/api/posts'))
 
 app.listen(PORT, () => {
   console.log('Server running on port ' + PORT)

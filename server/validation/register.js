@@ -17,7 +17,7 @@ module.exports = validateRegister = data => {
   }
   if (Validator.isEmpty(email)) {
     errors.email = 'Email is required'
-  } else if (!Validator.isEmpty(email)) {
+  } else if (!Validator.isEmail(email)) {
     errors.email = 'Enter a valid email address'
   }
 

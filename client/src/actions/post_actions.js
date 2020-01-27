@@ -11,22 +11,23 @@ import {
   TOGGLE_POSTS_LOADING
 } from './types'
 
+import { setErrors, clearErrors } from './error_actions'
 
 
 
 
-const togglePostLoading = () => {
+export const togglePostLoading = () => {
   return { type: TOGGLE_POST_LOADING }
 }
-const togglePostsLoading = () => {
+export const togglePostsLoading = () => {
   return { type: TOGGLE_POSTS_LOADING }
 }
-const resetPost = () => {
+export const resetPost = () => {
   return { type: RESET_POST }
 }
 
 
-const createPost = (post, history) => dispatch => {
+export const createPost = (post, history) => dispatch => {
   dispatch(togglePostLoading())
   axios.post('/api/post/create', post).then(result => {
     dispatch({ type: CREATE_POST, payload: result.data })
@@ -38,7 +39,7 @@ const createPost = (post, history) => dispatch => {
   })
 }
 
-const getPostByID = id => dispatch => {
+export const getPostByID = id => dispatch => {
   dispatch(togglePostLoading())
   axios.get(`/api/posts/post/${id}`).then(result => {
     dispatch({ type: GET_POST, payload: result.data })
@@ -49,7 +50,7 @@ const getPostByID = id => dispatch => {
     dispatch(togglePostLoading())
   })
 }
-const getAllPostsFromAuthor = author => dispatch => {
+export const getAllPostsFromAuthor = author => dispatch => {
   dispatch(togglePostLoading())
   axios.get(`/api/posts/author/${author}`).then(result => {
     dispatch({ type: GET_ALL_POSTS, payload: result.data })
@@ -60,7 +61,7 @@ const getAllPostsFromAuthor = author => dispatch => {
   })
 }
 
-const getAllPosts = () => dispatch => {
+export const getAllPosts = () => dispatch => {
   dispatch(togglePostLoading())
   axios.get('/api/posts/').then(result => {
     dispatch({ type: GET_ALL_POSTS, payload: result.data })
@@ -72,7 +73,7 @@ const getAllPosts = () => dispatch => {
   })
 }
 
-const editPost = (id, post, history) => dispatch => {
+export const editPost = (id, post, history) => dispatch => {
   dispatch(togglePostLoading())
   axios.patch(`/api/posts/update/${id}`).then(result => {
     dispatch({ type: UPDATE_POST, payload: result.data })
@@ -84,10 +85,10 @@ const editPost = (id, post, history) => dispatch => {
   })
 }
 
-const deletePost = (id, history) => dispatch => {
+export const deletePost = (id, history) => dispatch => {
   dispatch(togglePostLoading())
   axios.delete(`/api/posts/delete/${id}`).then(result => {
-    dispatch({ type: DELETE_POST, payload: _id })
+    dispatch({ type: DELETE_POST, payload: id })
     dispatch(togglePostLoading())
     history.push('/blog')
   }).catch(error => {
@@ -96,14 +97,3 @@ const deletePost = (id, history) => dispatch => {
   })
 }
 
-export default = {
-  togglePostLoading,
-  togglePostsLoading,
-  resetPost,
-  createPost,
-  getPostByID,
-  getAllPostsFromAuthor,
-  getAllPosts,
-  editPost,
-  deletePost
-}
